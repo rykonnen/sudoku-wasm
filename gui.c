@@ -404,7 +404,7 @@ int main(void) {
                 int ts = MeasureText(label, fontSize);
                 Color textColor = (initial_grid[i] != 0) ? GIVEN_NUM_COLOR : USER_NUM_COLOR;
                 DrawText(label, 
-                    cellRect.x + (cellRect.width - ts)/2-7.0f, cellRect.y + (cellRect.height - ts)/2-10.0f,
+                    cellRect.x + (cellRect.width - ts)/2, cellRect.y + (cellRect.height - ts)/2,
                     fontSize, textColor);
             }
         }
