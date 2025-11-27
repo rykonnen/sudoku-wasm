@@ -1,6 +1,6 @@
 #define CLAY_IMPLEMENTATION
 #include "raylib.h"
-#include "../clay.h"
+#include "clay.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
