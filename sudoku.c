@@ -47,10 +47,14 @@ void shuffle_u8(u8 *arr, int n) {
 
 bool generator_recursive(u8 grid[CELLS]) {
     int row, col;
+
     if (!find_empty(grid, &row, &col)) return true;
     u8 order[9];
+
     for (int i = 0; i < 9; i++) order[i] = i + 1;
+
     shuffle_u8(order, 9);
+
     for (int k = 0; k < 9; k++) {
         u8 v = order[k];
         if (is_valid(grid, row, col, v)) {
@@ -62,27 +66,71 @@ bool generator_recursive(u8 grid[CELLS]) {
     return false;
 }
 
-void make_puzzle(u8 current_grid[CELLS], u8 fixed_grid[CELLS], int holes) {
+
+
+int count_solutions(u8 grid[CELLS]) {
+    int row, col;
+    int total = 0;
+
+    if (!find_empty(grid, &row, &col)) return 1; // full grid = 1 solution
+
+    for (int val = 1; val <= 9; val++) {
+        if (is_valid(grid, row, col, val)) {
+            grid[idx(row, col)] = val;
+            total += count_solutions(grid);
+            if (total > 1) { // early exit if more than 1 solution
+                grid[idx(row, col)] = 0;
+                return total;
+            }
+            grid[idx(row, col)] = 0;
+        }
+    }
+    return total;
+}
+
+void make_unique_puzzle_fast(u8 current_grid[CELLS], u8 fixed_grid[CELLS], int holes) {
     memset(current_grid, 0, CELLS);
     memset(fixed_grid, 0, CELLS);
 
     u8 fullGrid[CELLS] = {0};
-    generator_recursive(fullGrid);              // generate full solution
-    memcpy(solution_grid, fullGrid, CELLS);    // store solution
+    generator_recursive(fullGrid);             // generate full solution
+    memcpy(solution_grid, fullGrid, CELLS);   // store solution
+    memcpy(current_grid, fullGrid, CELLS);    // start puzzle grid as full solution
+    memcpy(fixed_grid, fullGrid, CELLS);      // fixed grid for static cells
 
-    memcpy(current_grid, fullGrid, CELLS);     // start puzzle grid as full solution
-    memcpy(fixed_grid, fullGrid, CELLS);       // fixed grid for static cells
+    // create an array
+    int indices[CELLS];
+    for (int i = 0; i < CELLS; i++) indices[i] = i;
+
+    // shuffle indices to remove numbers in random order
+    for (int i = CELLS - 1; i > 0; i--) {
+        int j = rand() % (i + 1);
+        int tmp = indices[i];
+        indices[i] = indices[j];
+        indices[j] = tmp;
+    }
 
     int removed = 0;
-    while (removed < holes) {
-        int pos = rand() % CELLS;
+
+    // Remove numbers following the shuffled order
+    for (int i = 0; i < CELLS && removed < holes; i++) {
+        int pos = indices[i];
         if (current_grid[pos] != 0) {
+            u8 backup = current_grid[pos];
             current_grid[pos] = 0;
             fixed_grid[pos] = 0;
-            removed++;
+
+            if (count_solutions(current_grid) != 1) {
+                // restore if uniqueness is lost
+                current_grid[pos] = backup;
+                fixed_grid[pos] = backup;
+            } else {
+                removed++;
+            }
         }
     }
 }
+
 
 bool is_complete() {
     for (int i = 0; i < CELLS; i++)

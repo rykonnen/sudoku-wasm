@@ -19,7 +19,7 @@ NumberButton numberButtons[NUM_COUNT];
 
 bool flashError = false;
 int flashFrames = 0;
-const int FLASH_DURATION = 15;
+const int flashDuration = 15;
 
 
 
@@ -113,7 +113,7 @@ void render_game_loop(Clay_Arena arena, int fontSize) {
     while (!WindowShouldClose()) {
         Vector2 mouse = GetMousePosition();
 
-        // --- MENU ---
+        //MENU
         if (gameState == GAME_MENU) {
             hoveredDifficulty = -1;
 
@@ -161,7 +161,7 @@ void render_game_loop(Clay_Arena arena, int fontSize) {
                 gameState = GAME_PLAY;
             }
 
-            // --- Draw Menu ---
+            //Draw Menu
             BeginDrawing();
             ClearBackground(WHITE);
 
@@ -186,7 +186,7 @@ void render_game_loop(Clay_Arena arena, int fontSize) {
             continue;
         }
 
-        // --- GAMEPLAY ---
+        //GAMEPLAY
         Clay_RenderCommandArray gridCommands = CreateGridLayout();
 
         // Active cell selection
@@ -218,7 +218,7 @@ void render_game_loop(Clay_Arena arena, int fontSize) {
                     flashError = false;
                 } else {
                     flashError = true;
-                    flashFrames = FLASH_DURATION;
+                    flashFrames = flashDuration;
                     mistakes++;
                     if (mistakes >= 3) showSolution = true;
                 }
@@ -258,7 +258,7 @@ void render_game_loop(Clay_Arena arena, int fontSize) {
             showSolution = false;
         }
 
-        // --- DRAW GAME ---
+        //DRAW GAME
         BeginDrawing();
         ClearBackground(WHITE); // background color set to white
 

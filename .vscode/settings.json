@@ -5,5 +5,6 @@
         "gameplay.h": "c",
         "sudoku_main.h": "c",
         "random": "c"
-    }
+    },
+    "cmake.sourceDirectory": "C:/Users/Curio/Sudoku/clay/examples/termbox2-demo"
 }

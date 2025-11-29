@@ -1,0 +1,30 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+## [Unreleased]
+
+### Added
+- (placeholder) _Describe upcoming features or fixes here._
+
+---
+
+## [1.0.0] - 2025-11-28
+
+### Added
+- Initial full release of Sudoku Clay (sudoku-wasm).  
+- Core modules implemented: puzzle generation, solver, validation, UI rendering, input handling.  
+- WebAssembly build artifacts included (`index.html`, `index.js`, `index.wasm`) — deployable on GitHub Pages.  
+- Basic UI using CLAY for layout and raylib for rendering and input.  
+- Difficulty model based on hole-digging (clue count).  
+- Basic testing harness (`test.c`) for logic validation (generator, solver, validation functions).  
+
+### Changed
+- Not applicable — this is the first release.  
+
+### Fixed
+- Not applicable — initial release.  
+
+### Removed
+- Not applicable.  
+

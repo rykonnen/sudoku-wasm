@@ -15,6 +15,9 @@ typedef struct {
 extern GameState gameState;
 extern int activeCellIndex;
 extern int hoveredDifficulty;
+extern bool flashError;
+extern int flashFrames;
+extern const int flashDuration;
 extern Clay_Color STATIC_CELL_COLOR;
 extern Clay_Color EDITABLE_CELL_COLOR;
 extern Clay_Color HOVER_COLOR;
@@ -28,4 +31,4 @@ Clay_RenderCommandArray CreateGridLayout(void);
 Clay_RenderCommandArray CreateMenuLayout(void);
 void render_game_loop(Clay_Arena arena, int fontSize);
 
-#endif // GUI_H
+#endif 

@@ -28,6 +28,7 @@ bool is_valid(const u8 grid[CELLS], int row, int col, u8 val);
 bool find_empty(const u8 grid[CELLS], int *row, int *col);
 void shuffle_u8(u8 *arr, int n);
 bool generator_recursive(u8 grid[CELLS]);
+int count_solutions(u8 grid[CELLS]);
 void make_puzzle(u8 current_grid[CELLS], u8 fixed_grid[CELLS], int holes);
 bool is_complete(void);
 
